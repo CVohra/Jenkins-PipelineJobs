@@ -2,7 +2,9 @@ pipeline{
     agent any
     stages {
         stage('Cloning Repository') {
+            steps {
             git 'https://github.com/cit-agnitio/student-springboot.git'
+            }
         }
     }
 }
