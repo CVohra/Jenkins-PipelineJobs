@@ -1,19 +1,16 @@
-pipeline{
-    agent any
-    stages {
-        stage('Cloning Repository') {
-            steps {
-            git 'https://github.com/cit-agnitio/student-springboot.git'
+node{
+    stage('Cloning Repository') {
+        git 'https://github.com/cit-agnitio/student-springboot.git'
+    }
+
+    stage('Compile Code') {
+        try {
+            withMaven(jdk: 'JDK8', maven: 'MAVEN354') {
+                sh 'mvnx compile'
             }
         }
-
-        stage('Compile Code') {
-            steps{
-                withMaven(jdk: 'JDK8', maven: 'MAVEN354') {
-                sh 'mvnx compile'
-                }
-                echo 'Test'
-            }
+        catch (exc) {
+            slackSend 'Hello'
         }
     }
 }
