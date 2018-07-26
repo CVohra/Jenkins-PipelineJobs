@@ -13,4 +13,8 @@ node{
             slackSend 'Hello'
         }
     }
+
+    stage('Code Analysis') {
+        echo "Code Analysis with Sonar"
+    }
 }
