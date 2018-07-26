@@ -6,5 +6,12 @@ pipeline{
             git 'https://github.com/cit-agnitio/student-springboot.git'
             }
         }
+
+        stage('Compile Code') {
+            steps{
+                withMaven(jdk: 'JDK8', maven: 'MAVEN354') {}
+                sh 'mvn compile'
+            }
+        }
     }
 }
