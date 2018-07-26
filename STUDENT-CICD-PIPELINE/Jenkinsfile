@@ -10,7 +10,8 @@ node{
             }
         }
         catch (exc) {
-            slackSend 'Hello'
+            slackSend "Jenkins Job ia a failure"
+            sh 'false'
         }
     }
 
