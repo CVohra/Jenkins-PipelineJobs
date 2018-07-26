@@ -9,8 +9,9 @@ pipeline{
 
         stage('Compile Code') {
             steps{
-                withMaven(jdk: 'JDK8', maven: 'MAVEN354') {}
+                withMaven(jdk: 'JDK8', maven: 'MAVEN354') {
                 sh 'mvn compile'
+                }
             }
         }
     }
