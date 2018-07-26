@@ -1,13 +1,12 @@
 node{
     stage('Cloning Repository') {
         git 'https://github.com/cit-agnitio/student-springboot.git'
-        sh 'env'
     }
 
     stage('Compile Code') {
         try {
             withMaven(jdk: 'JDK8', maven: 'MAVEN354') {
-                sh 'mvnx compile'
+                sh 'mvn compile'
             }
         }
         catch (exc) {
@@ -17,6 +16,14 @@ node{
     }
 
     stage('Code Analysis') {
-        echo "Code Analysis with Sonar"
+        withMaven(jdk: 'JDK8', maven: 'MAVEN354') {
+            sh 'mvn sonar:sonar -Dsonar.host.url=http://10.142.0.10:9000 -Dsonar.login=8210bc003804617f42e4bd097912c21ad0769a7d'
+        }
+    }
+
+    stage('Packaging') {
+        withMaven(jdk: 'JDK8', maven: 'MAVEN354') {
+            sh 'mvn package'
+        }
     }
 }
