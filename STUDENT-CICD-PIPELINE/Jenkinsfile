@@ -26,4 +26,11 @@ node{
             sh 'mvn package'
         }
     }
+
+    stage('Run Ansible Playbook') {
+        git 'https://github.com/cit-agnitio/ansible-playbooks-testing.git'
+        
+
+        //sh 'ansible-playbook -i /tmp/inventory single-node-stack.yml'
+    }
 }
