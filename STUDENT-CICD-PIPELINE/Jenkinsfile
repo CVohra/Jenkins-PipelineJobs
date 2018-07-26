@@ -12,6 +12,7 @@ pipeline{
                 withMaven(jdk: 'JDK8', maven: 'MAVEN354') {
                 sh 'mvnx compile'
                 }
+                echo 'Test'
             }
         }
     }
