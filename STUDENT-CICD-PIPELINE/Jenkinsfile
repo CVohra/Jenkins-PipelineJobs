@@ -11,7 +11,7 @@ node{
             }
         }
         catch (exc) {
-            slackSend "Jenkins Job ia a failure"
+            slackSend "Jenkins Job ia a failure\nNew Line"
             sh 'false'
         }
     }
