@@ -36,7 +36,8 @@ else
 fi
 
 gcloud compute instances create testnode --image=mycentos7  --zone=us-east1-b
-echo testnode >/tmp/inventory'''
+echo testnode >/tmp/inventory
+sleep 30'''
     }
 
     stage('Run Ansible Playbook') {
