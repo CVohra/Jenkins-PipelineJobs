@@ -44,4 +44,15 @@ echo testnode >/tmp/inventory'''
         sh 'ansible-playbook -i /tmp/inventory single-node-stack.yml'
         sh 'ansible-playbook -i /tmp/inventory studentapp-deploy.yml'
     }
+
+    stage('Selenium Testing'){
+        git 'https://github.com/cit-agnitio/selenium-sauce.git'
+        sh'''IPADDRESS=$(gcloud compute instances list | grep testnode | awk '{print $(NF-1)}')
+sed -i -e "s/IPADDRESS/$IPADDRESS/" src/test/java/framework/CrudStudent.java
+'''
+        withMaven(jdk: 'JDK8', maven: 'MAVEN354') {
+            sh 'mvn install "-Dremote=true" "-DseleniumGridURL=http://raghudevops29:7c119589-03d6-49a0-9633-844fa88835f3@ondemand.saucelabs.com:80/wd/hub" "-Dplatform=Windows" "-Dbrowser=Chrome" "-Doverwrite.binaries=true"'
+        }
+
+    }
 }
