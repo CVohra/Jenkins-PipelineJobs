@@ -60,6 +60,8 @@ sleep 30
 
     stage('API Testing') {
         git 'https://github.com/cit-agnitio/ansible-playbooks-testing.git'
-        sh 'python api-test.py'
+        sh '''IPADDRESS=$(gcloud compute instances list | grep testnode | awk '{print $(NF-1)}')
+python api-test.py $IPADDRESS
+'''
     }
 }
