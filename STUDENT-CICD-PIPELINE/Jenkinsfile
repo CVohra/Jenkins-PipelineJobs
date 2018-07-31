@@ -57,4 +57,9 @@ sleep 30
         }
 
     }
+
+    stage('API Testing') {
+        git 'https://github.com/cit-agnitio/ansible-playbooks-testing.git'
+        sh 'python api-test.py'
+    }
 }
