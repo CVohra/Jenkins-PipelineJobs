@@ -27,6 +27,10 @@ node{
         }
     }
 
+    stage('Testing Approval') {
+        input message: 'Do you want to proceed with Testing', ok: 'YES'
+    }
+
     stage('Create Google Instance') {
         sh '''NODESTAT=$(gcloud compute instances list | grep testnode &>/dev/null || echo NO)
 if [ "$NODESTAT" = NO ]; then 
