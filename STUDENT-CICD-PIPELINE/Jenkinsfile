@@ -81,7 +81,8 @@ python api-test.py $IPADDRESS
         def releaseVersion = input message: 'Enter Release No', parameters: [string(defaultValue: '', description: 'Enter Release Number', name: 'RELEASE', trim: false)]
         env.releaseVersion = releaseVersion
         withMaven(jdk: 'JDK8', maven: 'MAVEN354') {
-            sh 'mvn versions:set -DnewVersion=${releaseVersion}-RELEASE clean package deploy'
+            sh 'mvn versions:set -DnewVersion=${releaseVersion}-RELEASE'
+            sh 'mvn clean package deploy'
         }
         
     }
