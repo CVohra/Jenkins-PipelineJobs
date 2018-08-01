@@ -70,8 +70,9 @@ python api-test.py $IPADDRESS
     }
 
     stage('Nexus Snapshot Upload') {
+        git 'https://github.com/cit-agnitio/student-springboot.git'
         withMaven(jdk: 'JDK8', maven: 'MAVEN354') {
-            sh 'mvn deploy'
+            sh 'mvn clean package deploy'
         }
     }
 
