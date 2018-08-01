@@ -68,4 +68,20 @@ sleep 30
 python api-test.py $IPADDRESS
 '''
     }
+
+    stage('Nexus Snapshot Upload') {
+        withMaven(jdk: 'JDK8', maven: 'MAVEN354') {
+            sh 'mvn deploy'
+        }
+    }
+
+
+    stage('Nexus Upload') {
+        def releaseVersion = input message: 'Enter Release No', parameters: [string(defaultValue: '', description: 'Enter Release Number', name: 'RELEASE', trim: false)]
+        env.releaseVersion = releaseVersion
+        withMaven(jdk: 'JDK8', maven: 'MAVEN354') {
+            sh 'mvn versions:set -DnewVersion=${releaseVersion}-RELEASE clean package deploy'
+        }
+        
+    }
 }
